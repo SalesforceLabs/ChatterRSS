@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <content>RSS2Chatter_OverrideNewRelObject</content>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Allows you to link feeds to Accounts, Contacts, Opportunities, Campaigns</description>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>Account__c</fullName>
+        <externalId>false</externalId>
+        <label>Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Related RSS Feeds</relationshipLabel>
+        <relationshipName>RSS_Feed_Related_Objects</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Campaign__c</fullName>
+        <externalId>false</externalId>
+        <label>Campaign</label>
+        <referenceTo>Campaign</referenceTo>
+        <relationshipLabel>Related RSS Feeds</relationshipLabel>
+        <relationshipName>RSS_Feed_Related_Objects</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Contact__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Related RSS Feeds</relationshipLabel>
+        <relationshipName>RSS_Feed_Related_Objects</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Opportunity__c</fullName>
+        <externalId>false</externalId>
+        <label>Opportunity</label>
+        <referenceTo>Opportunity</referenceTo>
+        <relationshipLabel>Related RSS Feeds</relationshipLabel>
+        <relationshipName>RSS_Feed_Related_Objects</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>RSS_Feed__c</fullName>
+        <externalId>false</externalId>
+        <label>RSS Feed</label>
+        <referenceTo>RSS_Feed__c</referenceTo>
+        <relationshipLabel>Related Objects</relationshipLabel>
+        <relationshipName>RSS_Feed_Related_Objects</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Related_Object_Id__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( NOT(OR( Account__c = &apos;&apos;, ISNULL(Account__c))) , Account__c , 
+IF( NOT(OR( Campaign__c = &apos;&apos;, ISNULL(Campaign__c))) , Campaign__c, 
+IF( NOT(OR( Contact__c = &apos;&apos;, ISNULL(Contact__c ))) , Contact__c, 
+IF( NOT(OR( Opportunity__c = &apos;&apos;, ISNULL(Opportunity__c ))) , Opportunity__c, 
+Contact__c ) )))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Related Object Id</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Related_Object_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( NOT(OR( Account__c  = &apos;&apos;, ISNULL(Account__c))) ,  Account__r.Name , 
+ IF( NOT(OR(  Campaign__c = &apos;&apos;, ISNULL(Campaign__c))) ,  Campaign__r.Name , 
+ IF( NOT(OR(   Contact__c = &apos;&apos;, ISNULL(Contact__c ))) ,  Contact__r.FirstName + &apos; &apos; +  Contact__r.LastName , 
+ IF( NOT(OR(    Opportunity__c = &apos;&apos;, ISNULL(Opportunity__c ))) ,  Opportunity__r.Name , 
+Contact__c ) )))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Related Object Name</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Relationship_Type__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( NOT(OR( Account__c  = &apos;&apos;, ISNULL(Account__c))) , &apos;Account&apos;, 
+ IF( NOT(OR(  Campaign__c = &apos;&apos;, ISNULL(Campaign__c))) , &apos;Campaign&apos;, 
+ IF( NOT(OR(   Contact__c = &apos;&apos;, ISNULL(Contact__c ))) , &apos;Contact&apos;, 
+ IF( NOT(OR(    Opportunity__c = &apos;&apos;, ISNULL(Opportunity__c ))) , &apos;Opportunity&apos;, 
+Contact__c ) )))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Relationship Type</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>RSS Feed Related Object</label>
+    <language>en_US</language>
+    <nameField>
+        <displayFormat>OBJ - {000000}</displayFormat>
+        <label>RSS Feed Related Object Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>RSS Feed Related Objects</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

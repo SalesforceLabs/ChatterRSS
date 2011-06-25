@@ -1,0 +1,89 @@
+<!-- 
+Copyright (c) 2011, salesforce.com, inc.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, 
+are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice, 
+    this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice, 
+    this list of conditions and the following disclaimer in the documentation 
+    and/or other materials provided with the distribution.
+    * Neither the name of the salesforce.com, Inc. nor the names of its contributors 
+    may be used to endorse or promote products derived from this software 
+    without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
+IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, 
+INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, 
+BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, 
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
+OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<apex:page standardController="RSS_Feed__c" extensions="RSS2Chatter_AssociateObjectController">
+	<apex:form >
+		
+		<apex:pageMessages />
+		<apex:outputLink value="../{!RSS_Feed__c.Id}" id="theLink">Back to RSS Feed: {!RSS_Feed__c.Name}</apex:outputLink><BR/>
+		<apex:pageblock >
+			<apex:pageBlockSection collapsible="false" title="RSS Feed Details ">
+				<apex:outputField value="{!RSS_Feed__c.Name}"/>
+				<apex:outputField value="{!RSS_Feed__c.URL__c}"/>
+			</apex:pageBlockSection>
+			<apex:pageBlockSection columns="5" collapsible="false" title="Search for Accounts, Opportunities or Campaigns"></apex:pageBlockSection>
+				<apex:outputLabel value="Search for " for="objType"/>
+				<apex:selectlist Id="objType" value="{!objectType}" size="1">
+					<apex:selectOption itemvalue="account" itemLabel="Accounts"/>
+					<apex:selectOption itemvalue="opportunity" itemLabel="Opportunites"/>
+					<apex:selectOption itemvalue="campaign" itemLabel="Campaigns"/>
+				</apex:selectlist>
+				<apex:outputLabel value=" where name is like " for="SearchText"/>
+				<apex:inputtext id="SearchText" value="{!searchTerm}" /><apex:commandbutton id="SearchFor" value="Search" action="{!searchFor}" />
+		</apex:pageblock>
+		
+		<apex:pageblock rendered="{!showAccResults=true}">
+			<apex:pageBlockButtons location="top" >
+                <apex:commandButton action="{!assignAccounts}" value="Add To Related Objects"/>
+            </apex:pageBlockButtons>
+			<apex:pageBlockTable value="{!accounts}" var="item" >
+				<apex:column >
+					<apex:inputCheckbox value="{!item.Checked}"/>
+				</apex:column>	
+	            <apex:column value="{!item.theObject.name}"/> 
+	        </apex:pageBlockTable> 
+		</apex:pageblock>
+		
+		<apex:pageblock rendered="{!showOppResults=true}">
+			<apex:pageBlockButtons location="top" >
+                <apex:commandButton action="{!assignOpportunities}" value="Add To Related Objects"/>
+            </apex:pageBlockButtons>		
+			<apex:pageBlockTable value="{!opportunities}" var="item">
+				<apex:column >
+					<apex:inputCheckbox value="{!item.Checked}"/>
+				</apex:column>	
+	            <apex:column value="{!item.theObject.name}"/> 
+	        </apex:pageBlockTable> 
+		</apex:pageblock>
+		
+		<apex:pageblock rendered="{!showCamResults=true}">
+			<apex:pageBlockButtons location="top" >
+                <apex:commandButton action="{!assignCampaigns}" value="Add To Related Objects"/>
+            </apex:pageBlockButtons>		
+			<apex:pageBlockTable value="{!campaigns}" var="item">
+				<apex:column >
+					<apex:inputCheckbox value="{!item.Checked}"/>
+				</apex:column>				
+	            <apex:column value="{!item.theObject.name}"/> 
+	        </apex:pageBlockTable> 
+		</apex:pageblock>
+			
+	</apex:form>
+	<apex:relatedList list="RSS_Feed_Related_Objects__r">
+       	<apex:facet name="header">Currently Related Objects</apex:facet>
+   	</apex:relatedList>	
+</apex:page>

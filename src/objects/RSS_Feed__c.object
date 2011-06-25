@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Allows you to define the url and other properties of an RSS feed you would like to allow users to follow</description>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>The active flag indicates whether or not the feed will be read, 
+this allows you to switch feeds on or off without deleting records</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The active flag indicates whether or not the feed will be read, 
+this allows you to switch feeds on or off without deleting records</inlineHelpText>
+        <label>Active</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Last_Sync__c</fullName>
+        <description>The last sync field shows the last date and time a feed post was added to this rss feed.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The last sync field shows the last date and time a feed post was added to this rss feed.</inlineHelpText>
+        <label>Last Sync</label>
+        <summarizedField>RSS_Feed_Posts__c.CreatedDate</summarizedField>
+        <summaryForeignKey>RSS_Feed_Posts__c.RSS_Feed__c</summaryForeignKey>
+        <summaryOperation>max</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Maximum_Posts_to_Read__c</fullName>
+        <defaultValue>20</defaultValue>
+        <description>The number of posts value determines how many newss items can be read from the rss feed, 
+a value of 0 here indicates that ALL posts will be read</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The number of posts value determines how many newss items can be read from the rss feed, 
+a value of 0 here indicates that ALL posts will be read</inlineHelpText>
+        <label>Maximum Posts to Read</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Roll_Up_Posts__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>The Roll up posts flag determines the way in which posts are presented in your chatter feed, rss news items can be posted as individual chatter posts, or if this flag is checked then the rss news items will be posted into a single chatter feed</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The Roll up posts flag determines the way in which posts are presented in your chatter feed, rss news items can be posted as individual chatter posts, or if this flag is checked then the rss news items will be posted into a single chatter feed</inlineHelpText>
+        <label>Roll Up Posts</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>URL__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <description>The url tells the system where to get the rss feed data from</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The url tells the system where to get the rss feed data from</inlineHelpText>
+        <label>URL</label>
+        <length>255</length>
+        <required>true</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <label>RSS Feed</label>
+    <language>en_US</language>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Active__c</columns>
+        <columns>Maximum_Posts_to_Read__c</columns>
+        <columns>Roll_Up_Posts__c</columns>
+        <columns>Last_Sync__c</columns>
+        <columns>URL__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <label>RSS Feed</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>RSS Feeds</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <webLinks>
+        <fullName>Setup_Instructions</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Setup Instructions</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>/apex/RSS2Chatter_SplashScreen</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Test_Feed</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>url</linkType>
+        <masterLabel>Test Feed ...</masterLabel>
+        <openType>sidebar</openType>
+        <protected>false</protected>
+        <url>/apex/rss2chatter_preview?id={!RSS_Feed__c.Id}</url>
+    </webLinks>
+</CustomObject>

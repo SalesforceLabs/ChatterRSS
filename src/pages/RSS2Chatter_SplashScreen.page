@@ -1,0 +1,91 @@
+<!-- 
+Copyright (c) 2011, salesforce.com, inc.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, 
+are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice, 
+    this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice, 
+    this list of conditions and the following disclaimer in the documentation 
+    and/or other materials provided with the distribution.
+    * Neither the name of the salesforce.com, Inc. nor the names of its contributors 
+    may be used to endorse or promote products derived from this software 
+    without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
+IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, 
+INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, 
+BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, 
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
+OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<apex:page showHeader="false" >
+<img src="{!$Resource.labsLogo}"/>
+<head>
+    <title>Untitled Page</title>
+    <style type="text/css">
+        .style1
+        {
+            color: #990000;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body style="font-family: Tahoma">
+<h3>Chatter RSS</h3>
+<p>Chatter RSS integrates RSS/ATOM news feeds into salesforce chatter.</p>
+<p>There are 2 main components to this app, a configuration ui and some batch apex code.</p>
+<p>The UI Maintains a list of rss feeds, The feed record defines several fields described below:</p>
+<ul>
+    <li>Each feed has a <b>name</b>, this is unique and identifies the topic in your chatter feed
+    </li> 
+    <li>The <b>url</b> tells the system where to get the rss feed data from </li>
+    <li>The <b>active flag</b> indicates whether or not the feed will be read, this allows you to switch feeds on or off without deleting records
+    </li>
+    <li>The<b> number of posts</b> value determines how many news items can be read from the rss feed, a value of 0 here indicates that ALL posts will be read
+    </li>
+    <li>The <b>Roll up posts</b> flag determines the way in which posts are presented in your chatter feed, News items can be displayed as individual chatter posts, or if this flag is checked then the news items will be posted into a single chatter feed
+    </li>
+    <li>The <b>last sync</b> field shows the last date and time a feed post was added to this rss feed.
+    </li>
+</ul>
+<h3>Test Feed Button (NEW!)</h3>
+<p>The test feed button will allow you to preview a feed's content to test if you have configured it correctly. Any errors or problems will be reported on this page.</p>
+<p>Additionally any errors detected in the feed as the batch apex executes are reported in the chatter stream of the user who created and last updated the feed.</p>
+<h3>RSS Feed Posts</h3>
+<P>The system stores the rss news items as feed post records and these appear in a related list. 
+    The GUID field is defined as a unique field, which is the mechanism employed to ensure that duplicate feed posts don't get added to your organisation.</P>
+<p>When a user wants to follow a particular feed, they need to navigate to the rss feed record of interest, and click follow, the user will now see posts added to that feed as and when they come through in their chatter feed.</p>
+<h3>RSS Feed Related Objects (NEW!)</h3>
+<p>The Related Objects allow you to assoiate a feed to a particular Account, 
+Opportunity or Campaign. This allows you to follow an rss feed from an object 
+record without having the posts appear in your stream. To associate an object, 
+click the &quot;New RSS Feed Related Object&quot;, you are then presented with a search 
+screen which allows you to find and select the objects you wish to associate.</p>
+<p>Objects can also be associated from their own detail layout. A related list is available for Accounts, Opportunities and 
+    Campaigns which will take you to a selection screen, where you can choose the 
+    rss feeds you wish associate with the object.</p>
+<h3>Schedule the Batch Apex Class to go and get feed data</h3>
+<p>The second element of the system is the batch apex code that maintains your rss feeds. </p>
+<p>There are two schedulable apex classes provided as part of the application.</p>
+<ul>
+    <li>The ScheduleGetRSS class is the code that gets rss data from the sources configured in your org, it then inserts any new posts and creates chatter feed items from the newly inserted posts.
+    </li>
+    <li>The CleanUpChatterPosts class allows you to remove posts that have been in the system for a specified length of time. This time interval is managed via a custom setting. 
+    </li>   
+</ul>
+    <p>To Schedule the classes, navigate to &quot;Setup|App Setup|Develop|Apex Classes&quot;, Click on the button &quot;Schedule Apex&quot;, this will allow you to specify the days and time of the batch execution. You can monitor the status of your scheduled apex jobs via the Monitoring|Apex Jobs option under administration setup. </p><p>The Classes should be scheduled to run at a time of minimum user activity (overnight for example) and should be set to run at times that will not overlap.</p>
+<p><b>Important Note:</b> <span class="style1">To enable the batch job to read from the rss sites configured in the ui, you will need to add the sites to you organisation's remote sites list. </span>
+To do this you should navigate to "Setup|Administration Setup|Security Controls|Remote Site Settings" and add the domain of your news feed here. Please refer to salesfore help and support for more detail on setting up remote sites.</p>
+<p>Enjoy Chatter RSS!</p>
+<p>Click <a href="http://www.youtube.com/watch?v=MdS75e6mRTc" target="videoWindow">here</a> to watch a video introducing this app</p>
+</body> 
+ 
+
+</apex:page>
