@@ -63,14 +63,16 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
     The GUID field is defined as a unique field, which is the mechanism employed to ensure that duplicate feed posts don't get added to your organisation.</P>
 <p>When a user wants to follow a particular feed, they need to navigate to the rss feed record of interest, and click follow, the user will now see posts added to that feed as and when they come through in their chatter feed.</p>
 <h3>RSS Feed Related Objects (NEW!)</h3>
-<p>The Related Objects allow you to assoiate a feed to a particular Account, 
-Opportunity or Campaign. This allows you to follow an rss feed from an object 
+<p>The Related Objects allow you to assoiate a feed to a particular Chatter-enabled object.
+ This allows you to follow an rss feed from an object 
 record without having the posts appear in your stream. To associate an object, 
 click the &quot;New RSS Feed Related Object&quot;, you are then presented with a search 
 screen which allows you to find and select the objects you wish to associate.</p>
 <p>Objects can also be associated from their own detail layout. A related list is available for Accounts, Opportunities and 
     Campaigns which will take you to a selection screen, where you can choose the 
     rss feeds you wish associate with the object.</p>
+<h3>Making Standard or Custom object Chatter-enabled</h3>
+<p> To make object Chatter-enabled, navigate to Feed Tracking ("Setup|Customize|Chatter|Feed Tracking"). You should see the list of objects. Select object that you want to enable and check "Enable Feed Tracking" checkbox.</p>
 <h3>Schedule the Batch Apex Class to go and get feed data</h3>
 <p>The second element of the system is the batch apex code that maintains your rss feeds. </p>
 <p>There are two schedulable apex classes provided as part of the application.</p>
