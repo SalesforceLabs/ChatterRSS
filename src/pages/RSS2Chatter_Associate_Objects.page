@@ -26,64 +26,39 @@ OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISE
 OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <apex:page standardController="RSS_Feed__c" extensions="RSS2Chatter_AssociateObjectController">
-	<apex:form >
-		
-		<apex:pageMessages />
-		<apex:outputLink value="../{!RSS_Feed__c.Id}" id="theLink">Back to RSS Feed: {!RSS_Feed__c.Name}</apex:outputLink><BR/>
-		<apex:pageblock >
-			<apex:pageBlockSection collapsible="false" title="RSS Feed Details ">
-				<apex:outputField value="{!RSS_Feed__c.Name}"/>
-				<apex:outputField value="{!RSS_Feed__c.URL__c}"/>
-			</apex:pageBlockSection>
-			<apex:pageBlockSection columns="5" collapsible="false" title="Search for Accounts, Opportunities or Campaigns"></apex:pageBlockSection>
-				<apex:outputLabel value="Search for " for="objType"/>
-				<apex:selectlist Id="objType" value="{!objectType}" size="1">
-					<apex:selectOption itemvalue="account" itemLabel="Accounts"/>
-					<apex:selectOption itemvalue="opportunity" itemLabel="Opportunites"/>
-					<apex:selectOption itemvalue="campaign" itemLabel="Campaigns"/>
-				</apex:selectlist>
-				<apex:outputLabel value=" where name is like " for="SearchText"/>
-				<apex:inputtext id="SearchText" value="{!searchTerm}" /><apex:commandbutton id="SearchFor" value="Search" action="{!searchFor}" />
-		</apex:pageblock>
-		
-		<apex:pageblock rendered="{!showAccResults=true}">
-			<apex:pageBlockButtons location="top" >
-                <apex:commandButton action="{!assignAccounts}" value="Add To Related Objects"/>
+    <apex:form >
+        
+        <apex:pageMessages />
+        <apex:outputLink value="../{!RSS_Feed__c.Id}" id="theLink">Back to RSS Feed: {!RSS_Feed__c.Name}</apex:outputLink><BR/>
+        <apex:pageblock >
+            <apex:pageBlockSection collapsible="false" title="RSS Feed Details ">
+                <apex:outputField value="{!RSS_Feed__c.Name}"/>
+                <apex:outputField value="{!RSS_Feed__c.URL__c}"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection columns="5" collapsible="false" title="Search for Chatter feeds enabled objects"></apex:pageBlockSection>
+                <apex:outputLabel value="Search for " for="objType"/>
+                <apex:selectList multiselect="false" size="1" value="{!selectedItem}">
+                    <apex:selectOptions value="{!selectObjects}" />
+                </apex:selectList>
+                <apex:outputLabel value=" where name is like " for="SearchText"/>
+                <apex:inputtext id="SearchText" value="{!searchTerm}" /><apex:commandbutton id="SearchFor" value="Search" action="{!searchFor}" />
+        </apex:pageblock>
+        
+        <apex:pageblock rendered="{!showResults=true}">
+            <apex:pageBlockButtons location="top" >
+                <apex:commandButton action="{!assignObjects}" value="Add To Related Objects"/>
             </apex:pageBlockButtons>
-			<apex:pageBlockTable value="{!accounts}" var="item" >
-				<apex:column >
-					<apex:inputCheckbox value="{!item.Checked}"/>
-				</apex:column>	
-	            <apex:column value="{!item.theObject.name}"/> 
-	        </apex:pageBlockTable> 
-		</apex:pageblock>
-		
-		<apex:pageblock rendered="{!showOppResults=true}">
-			<apex:pageBlockButtons location="top" >
-                <apex:commandButton action="{!assignOpportunities}" value="Add To Related Objects"/>
-            </apex:pageBlockButtons>		
-			<apex:pageBlockTable value="{!opportunities}" var="item">
-				<apex:column >
-					<apex:inputCheckbox value="{!item.Checked}"/>
-				</apex:column>	
-	            <apex:column value="{!item.theObject.name}"/> 
-	        </apex:pageBlockTable> 
-		</apex:pageblock>
-		
-		<apex:pageblock rendered="{!showCamResults=true}">
-			<apex:pageBlockButtons location="top" >
-                <apex:commandButton action="{!assignCampaigns}" value="Add To Related Objects"/>
-            </apex:pageBlockButtons>		
-			<apex:pageBlockTable value="{!campaigns}" var="item">
-				<apex:column >
-					<apex:inputCheckbox value="{!item.Checked}"/>
-				</apex:column>				
-	            <apex:column value="{!item.theObject.name}"/> 
-	        </apex:pageBlockTable> 
-		</apex:pageblock>
-			
-	</apex:form>
-	<apex:relatedList list="RSS_Feed_Related_Objects__r">
-       	<apex:facet name="header">Currently Related Objects</apex:facet>
-   	</apex:relatedList>	
+            <apex:pageBlockTable value="{!sObjectsList}" var="item" >
+                <apex:column width="15px">
+                    <apex:inputCheckbox value="{!item.Checked}"/>
+                </apex:column>  
+                <apex:column headerValue="Name" >
+                    <apex:outputLabel value="{!item.Name}"/> 
+                </apex:column>
+            </apex:pageBlockTable> 
+        </apex:pageblock>
+    </apex:form>
+    <apex:relatedList list="RSS_Feed_Related_Objects__r">
+        <apex:facet name="header">Currently Related Objects</apex:facet>
+    </apex:relatedList> 
 </apex:page>
